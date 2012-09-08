@@ -1,8 +1,15 @@
+Then /I should see all of the movies/ do
+  save_and_open_page
+  page.all('table#movies tr').count.should == @row_count
+end
+
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
    m = Movie.create movie
    m.save!
   end
+  @row_count = movies_table.rows.count
+  puts "row count is #{@row_count}"
 end
 
 # Make sure that one string (regexp) occurs before or after another one
